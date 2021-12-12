@@ -1,41 +1,41 @@
 grammar python;
 
-expression
-   : commentExpression | variableExpression
-   ;
+prog: (expression)*;
 
-commentExpression
-   : COMMENT STRING
-   ;
+expression: variableExpression /* | otherexpressions */;
 
-variableExpression
-   :  VAR ' '? '=' ' '? '"' STRING '"' | number | VAR
-   ;
+variableExpression: VAR ' '? '=' ' '? ('"' STRING '"' | NUMBER | VAR);
 
-number
-   : '-'? DIGIT + 
-   ;
+VAR: (LETTER | '_') STRING?;
 
-DIGIT
-   : ('0' .. '9')
-   ;
+NUMBER: '-'? DIGIT+;
 
-WS
-   : [ \r\n\t] + -> channel (HIDDEN)
-   ;
+LETTER: (LOWER|UPPER);
 
-COMMENT
-   : '#'
-   ;
+STRING: (LETTER|DIGIT)+;
 
-STRING
-   : .*
-   ;
+DIGIT: [0-9];
 
-LETTER
-   : ('A' .. 'Z') | ('a' .. 'z')
-   ;
+LOWER: [a-z];
 
-VAR
-   : LETTER|'_'(STRING)
-   ;
+UPPER: [A-Z];
+
+WS: [ \t\r\n] + -> skip;
+
+COMMENT: '#'.* -> skip;
+
+// /*
+//  * Parser Rules
+//  */
+// operation : addition | subtraction;
+// subtraction : NUMBER '-' NUMBER;
+// addition  : NUMBER '+' NUMBER ;
+// var: LOWER;
+// /*
+//  * Lexer Rules
+//  */
+// NUMBER     : '-'? DIGIT+ ;
+// fragment DIGIT: [0-9];
+// LOWER: [a-z];
+// fragment UPPER: [A-Z];
+// WHITESPACE : [ \t\r\n] + -> skip ;

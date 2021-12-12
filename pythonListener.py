@@ -8,6 +8,15 @@ else:
 # This class defines a complete listener for a parse tree produced by pythonParser.
 class pythonListener(ParseTreeListener):
 
+    # Enter a parse tree produced by pythonParser#prog.
+    def enterProg(self, ctx:pythonParser.ProgContext):
+        pass
+
+    # Exit a parse tree produced by pythonParser#prog.
+    def exitProg(self, ctx:pythonParser.ProgContext):
+        pass
+
+
     # Enter a parse tree produced by pythonParser#expression.
     def enterExpression(self, ctx:pythonParser.ExpressionContext):
         pass
@@ -17,30 +26,12 @@ class pythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by pythonParser#commentExpression.
-    def enterCommentExpression(self, ctx:pythonParser.CommentExpressionContext):
-        pass
-
-    # Exit a parse tree produced by pythonParser#commentExpression.
-    def exitCommentExpression(self, ctx:pythonParser.CommentExpressionContext):
-        pass
-
-
     # Enter a parse tree produced by pythonParser#variableExpression.
     def enterVariableExpression(self, ctx:pythonParser.VariableExpressionContext):
         pass
 
     # Exit a parse tree produced by pythonParser#variableExpression.
     def exitVariableExpression(self, ctx:pythonParser.VariableExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by pythonParser#number.
-    def enterNumber(self, ctx:pythonParser.NumberContext):
-        pass
-
-    # Exit a parse tree produced by pythonParser#number.
-    def exitNumber(self, ctx:pythonParser.NumberContext):
         pass
 
 

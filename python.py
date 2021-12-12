@@ -2,6 +2,7 @@ import sys
 from antlr4 import *
 from pythonLexer import pythonLexer
 from pythonParser import pythonParser
+from pythonListener import pythonListener
 
 
 def main(argv):
@@ -13,7 +14,7 @@ def main(argv):
     lexer = pythonLexer(line)
     tokens = CommonTokenStream(lexer)
     parser = pythonParser(tokens)
-    tree = parser.expression()
+    tree = parser.prog()
     print(tree.toStringTree(recog=parser))
 
 if __name__ == '__main__':

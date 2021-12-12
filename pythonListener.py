@@ -35,5 +35,32 @@ class pythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by pythonParser#evaluatorExpression.
+    def enterEvaluatorExpression(self, ctx:pythonParser.EvaluatorExpressionContext):
+        pass
+
+    # Exit a parse tree produced by pythonParser#evaluatorExpression.
+    def exitEvaluatorExpression(self, ctx:pythonParser.EvaluatorExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by pythonParser#ifExpression.
+    def enterIfExpression(self, ctx:pythonParser.IfExpressionContext):
+        pass
+
+    # Exit a parse tree produced by pythonParser#ifExpression.
+    def exitIfExpression(self, ctx:pythonParser.IfExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by pythonParser#block.
+    def enterBlock(self, ctx:pythonParser.BlockContext):
+        pass
+
+    # Exit a parse tree produced by pythonParser#block.
+    def exitBlock(self, ctx:pythonParser.BlockContext):
+        pass
+
+
 
 del pythonParser

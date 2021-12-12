@@ -1,10 +1,41 @@
 grammar python;
 
-prog: (expression)*;
+tokens { INDENT, DEDENT }
 
-expression: variableExpression /* | otherexpressions */;
+@lexer::header{
+from antlr_denter.DenterHelper import DenterHelper
+from pythonParser import pythonParser
+}
+@lexer::members {
+class MyCoolDenter(DenterHelper):
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
+        self.lexer: pythonLexer = lexer
 
-variableExpression: VAR ' '? '=' ' '? ('"' STRING '"' | NUMBER | VAR);
+    def pull_token(self):
+        return super(pythonLexer, self.lexer).nextToken()
+
+denter = None
+
+def nextToken(self):
+    if not self.denter:
+        self.denter = self.MyCoolDenter(self, self.NL, pythonParser.INDENT, pythonParser.DEDENT, 1) 
+    return self.denter.next_token()
+
+}
+
+prog: (expression)* EOF;
+
+expression: variableExpression  
+            | ifExpression;
+
+variableExpression: VAR '=' ('"' STRING '"' | NUMBER | VAR) NL?;
+
+evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>=')) (VAR | NUMBER)?;
+
+ifExpression: ('if' evaluatorExpression ':' block) ('else if' evaluatorExpression ':' block)* ('else' ':' block)?;
+
+block: INDENT (expression)+ DEDENT;
 
 VAR: (LETTER | '_') STRING?;
 
@@ -14,15 +45,20 @@ LETTER: (LOWER|UPPER);
 
 STRING: (LETTER|DIGIT)+;
 
-DIGIT: [0-9];
+DIGIT: [0-9]+;
 
 LOWER: [a-z];
 
 UPPER: [A-Z];
 
-WS: [ \t\r\n] + -> skip;
+COMMENT: '#' ~('\n' | '\r')* ->skip;
 
-COMMENT: '#'.* -> skip;
+NL: ('\r'? '\n' ' '*);
+
+WS: [ \t] + -> skip;
+
+
+
 
 // /*
 //  * Parser Rules

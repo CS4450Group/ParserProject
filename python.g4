@@ -27,17 +27,25 @@ def nextToken(self):
 prog: (expression)* EOF;
 
 expression: variableExpression  
-            | ifExpression;
+            | ifExpression | whileExpression | forExpression; // added while and for loops
 
-variableExpression: VAR '=' ('"' STRING '"' | NUMBER | VAR) NL?;
+variableExpression: VAR ASSIGN ('"' STRING '"' | NUMBER | VAR | arithmetic) NL?; //changed '=' to all assignment operators
 
-evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>=')) (VAR | NUMBER)?;
+//evaluatorExpressions now allow consecutive expressions seperated by logic operators 
+evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>='))(VAR | NUMBER | arithmetic) (('and' | 'or' | 'not')VAR('!' | ('<=' | '<' | '==' | '>' | '>='))(VAR | NUMBER | arithmetic))*; //arithmetic added
 
 ifExpression: ('if' evaluatorExpression ':' block) ('else if' evaluatorExpression ':' block)* ('else' ':' block)?;
 
-block: INDENT (expression)+ DEDENT;
+whileExpression: ('while' evaluatorExpression ':' block); //while loops added
 
-VAR: (LETTER | '_') STRING?;
+//for loops, only works for looping through an already assigned variable for the time being. Iterable data types still need to be added / fixed. (strings don't seem to work.)
+forExpression: ('for' VAR 'in' (VAR) ':' block); 
+
+arithmetic: (NUMBER | VAR) OP (NUMBER | VAR) (OP (NUMBER | VAR))*;  //arithmetic works for all operators +,-,*,/,^,%
+
+block: INDENT (expression)+ DEDENT?; // added a ? to allow blocks at the end of the file
+
+VAR: (LETTER | '_') (LETTER | '_' | DIGIT)*; //changed from VAR: (LETTER | '_') STRING?; to allow _ seperated words
 
 NUMBER: '-'? DIGIT+;
 
@@ -53,12 +61,12 @@ UPPER: [A-Z];
 
 COMMENT: '#' ~('\n' | '\r')* ->skip;
 
+OP: ('+' | '-' | '*' | '/' | '%' | '^'); //operators for arithmetic
+ASSIGN: ('=' | '+=' | '-=' | '*=' | '/=' | '^=' | '%='); //operators for assignment
+
 NL: ('\r'? '\n' ' '*);
 
 WS: [ \t] + -> skip;
-
-
-
 
 // /*
 //  * Parser Rules

@@ -27,15 +27,19 @@ def nextToken(self):
 prog: (expression)* EOF;
 
 expression: variableExpression  
-            | ifExpression;
+            | ifExpression | whileExpression;
 
-variableExpression: VAR '=' ('"' STRING '"' | NUMBER | VAR) NL?;
+variableExpression: VAR '=' ('"' STRING '"' | NUMBER | VAR | arithmetic) NL?;
 
-evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>=')) (VAR | NUMBER)?;
+evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>=')) (VAR | NUMBER | arithmetic)?;
 
 ifExpression: ('if' evaluatorExpression ':' block) ('else if' evaluatorExpression ':' block)* ('else' ':' block)?;
 
-block: INDENT (expression)+ DEDENT;
+whileExpression: ('while' evaluatorExpression ':' block);
+
+arithmetic: (NUMBER | VAR) OP (NUMBER | VAR);  
+
+block: INDENT (expression)+ DEDENT?;
 
 VAR: (LETTER | '_') STRING?;
 
@@ -52,6 +56,8 @@ LOWER: [a-z];
 UPPER: [A-Z];
 
 COMMENT: '#' ~('\n' | '\r')* ->skip;
+
+OP: ('+' | '-' | '*' | '/' | '%' | '^');
 
 NL: ('\r'? '\n' ' '*);
 

@@ -15,7 +15,7 @@ while x == 3 and y == 2:
      x = variable
 x = 1 + 2 + 3
 for x in y:
-    this = variable
+    this = "x"
     x = this
   
 x += 1

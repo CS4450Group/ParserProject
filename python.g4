@@ -29,7 +29,7 @@ prog: (expression)* EOF;
 expression: variableExpression  
             | ifExpression | whileExpression | forExpression; // added while and for loops
 
-variableExpression: VAR ASSIGN ('"' STRING '"' | NUMBER | VAR | arithmetic) NL?; //changed '=' to all assignment operators
+variableExpression: VAR ASSIGN (STRING | NUMBER | VAR | arithmetic) NL?; //changed '=' to all assignment operators
 
 //evaluatorExpressions now allow consecutive expressions seperated by logic operators 
 evaluatorExpression: VAR('!' | ('<=' | '<' | '==' | '>' | '>='))(VAR | NUMBER | arithmetic) (('and' | 'or' | 'not')VAR('!' | ('<=' | '<' | '==' | '>' | '>='))(VAR | NUMBER | arithmetic))*; //arithmetic added
@@ -51,7 +51,7 @@ NUMBER: '-'? DIGIT+;
 
 LETTER: (LOWER|UPPER);
 
-STRING: (LETTER|DIGIT)+;
+STRING: '"'(LETTER|DIGIT)'"'+;
 
 DIGIT: [0-9]+;
 

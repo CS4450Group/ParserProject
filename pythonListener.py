@@ -62,15 +62,6 @@ class pythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by pythonParser#rangeExpression.
-    def enterRangeExpression(self, ctx:pythonParser.RangeExpressionContext):
-        pass
-
-    # Exit a parse tree produced by pythonParser#rangeExpression.
-    def exitRangeExpression(self, ctx:pythonParser.RangeExpressionContext):
-        pass
-
-
     # Enter a parse tree produced by pythonParser#forExpression.
     def enterForExpression(self, ctx:pythonParser.ForExpressionContext):
         pass
@@ -80,12 +71,21 @@ class pythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by pythonParser#arithmetic.
-    def enterArithmetic(self, ctx:pythonParser.ArithmeticContext):
+    # Enter a parse tree produced by pythonParser#printStatement.
+    def enterPrintStatement(self, ctx:pythonParser.PrintStatementContext):
         pass
 
-    # Exit a parse tree produced by pythonParser#arithmetic.
-    def exitArithmetic(self, ctx:pythonParser.ArithmeticContext):
+    # Exit a parse tree produced by pythonParser#printStatement.
+    def exitPrintStatement(self, ctx:pythonParser.PrintStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by pythonParser#iterable.
+    def enterIterable(self, ctx:pythonParser.IterableContext):
+        pass
+
+    # Exit a parse tree produced by pythonParser#iterable.
+    def exitIterable(self, ctx:pythonParser.IterableContext):
         pass
 
 

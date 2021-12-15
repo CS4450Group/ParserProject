@@ -4,7 +4,7 @@ Created by Kyler Froman, Benjamin Bradshaw, Benjamin Winningham, and AJ Wilkinso
 
 ## Dependencies
 > pip install antlr4-python3-runtime
-> pip install antlr_denter
+> pip install antlr_denter (Used to check indented and dented)
 
 ## Building the Parser
 This step shouldn't be necessary since the files are already created, but in case they need to be recreated or updated:

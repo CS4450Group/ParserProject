@@ -1,5 +1,0 @@
-1. Fix strings.
-2. Support iterables such as the range() function.
-3. Support print statements.
-4. support parenthesis in if statements.
-5. Possibly need to account for nested if statements.  
